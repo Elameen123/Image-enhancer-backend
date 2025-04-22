@@ -18,7 +18,7 @@ app = FastAPI(title="Image Processor API")
 # Add CORS middleware to allow requests from frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://image-contrast-brightness-opencv.vercel.app/"],  # In production, replace with specific origins
+    allow_origins=["https://image-contrast-brightness-opencv.vercel.app"],  # Remove trailing slash
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
