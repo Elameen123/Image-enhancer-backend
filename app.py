@@ -18,7 +18,7 @@ app = FastAPI(title="Image Processor API")
 # Add CORS middleware to allow requests from frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://image-contrast-brightness-opencv.vercel.app"],  # Remove trailing slash
+    allow_origins=["https://image-contrast-brightness-opencv.vercel.app", "http://localhost:3000"],  # Remove trailing slash
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -158,6 +158,10 @@ async def clear_image():
         os.remove(image_path)
     
     return JSONResponse(content={'message': 'Image cleared'})
+
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"} 
 
 # For testing in development
 if __name__ == "__main__":
