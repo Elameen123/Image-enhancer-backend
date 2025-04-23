@@ -46,10 +46,17 @@ def load_current_image():
 def adjust_brightness_contrast(image, alpha, beta):
     """Adjust the brightness and contrast of an image"""
     adjusted = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
+    adjusted = np.clip(adjusted, 0, 255).astype(np.uint8) 
     return adjusted
 
 def generate_histogram(image):
     """Generate a histogram of the image with improved visualization"""
+    """Explain histogram changes due to α and β:
+    - α > 1: Stretches histogram (higher contrast).
+    - α < 1: Compresses histogram (lower contrast).
+    - β > 0: Shifts histogram right (brighter).
+    - β < 0: Shifts histogram left (darker).
+    """
     fig = Figure(figsize=(4, 3), dpi=100)
     canvas = FigureCanvas(fig)
     ax = fig.add_subplot(111)
